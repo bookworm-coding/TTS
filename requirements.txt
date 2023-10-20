@@ -1,0 +1,3 @@
+aiogTTS
+streamlit
+streamlit_extras
