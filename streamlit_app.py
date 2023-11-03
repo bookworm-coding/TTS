@@ -1,8 +1,8 @@
 import streamlit as st
 from io import BytesIO
 from gtts import gTTS
-from langdetect import detect
-from langdetect import DetectorFactory
+from langdetect import detect, DetectorFactory
+
 DetectorFactory.seed = 0
 
 st.set_page_config(
@@ -13,7 +13,8 @@ st.set_page_config(
 
 
 def tts():
-    gtts = gTTS(text=text, lang=detect(text))
+    lang = detect(text)
+    gtts = gTTS(text=text, lang=lang)
     b = BytesIO()
     gtts.write_to_fp(b)
     st.audio(b)
@@ -23,6 +24,5 @@ def tts():
 
 st.title("TTS")
 text = st.text_area(label="TTS 오디오를 생성할 텍스트를 입력하세요.")
-
 
 st.button("TTS 오디오 생성", on_click=tts)
